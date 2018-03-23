@@ -1,5 +1,8 @@
 package leifu.mvpdemo.ui;
 
+import android.widget.TextView;
+
+import butterknife.BindView;
 import leifu.mvpdemo.R;
 import leifu.mvpdemo.base.BaseActivity;
 import leifu.mvpdemo.model.bean.DailyListBean;
@@ -15,6 +18,9 @@ import leifu.toastlibrary.CustomToast;
  */
 
 public class TestDaggerActivity extends BaseActivity<TestDaggerPresenter> implements TestDaggerContract.View {
+    @BindView(R.id.text)
+    TextView text;
+
     @Override
     protected int getLayout() {
         return R.layout.activity_main;
@@ -22,19 +28,19 @@ public class TestDaggerActivity extends BaseActivity<TestDaggerPresenter> implem
 
     @Override
     protected void initEventAndData() {
-
-//        mPresenter.getDailyList();
+        mPresenter.getDailyList();
     }
 
     @Override
-    protected void initInject() {
-
-//        getActivityComponent().inject(this);
+    public void initInject() {
+        getActivityComponent().inject(this);
     }
 
     @Override
     public void showContent(DailyListBean dailyListBean) {
         CustomToast.success("111" + dailyListBean.getDate());
         Logger.e("aaa" + dailyListBean.getDate());
+        text.setText(dailyListBean.getDate());
     }
+
 }

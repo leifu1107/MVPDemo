@@ -1,7 +1,5 @@
 package leifu.mvpdemo.model;
 
-import javax.inject.Inject;
-
 import io.reactivex.Flowable;
 import leifu.mvpdemo.model.bean.DailyListBean;
 import leifu.mvpdemo.model.http.ZhiHuApis;
@@ -15,7 +13,6 @@ import leifu.mvpdemo.model.http.ZhiHuApis;
 public class RetrofitHelper {
     private ZhiHuApis mZhihuApiService;
 
-    @Inject
     public RetrofitHelper(ZhiHuApis mZhihuApiService) {
         this.mZhihuApiService = mZhihuApiService;
     }

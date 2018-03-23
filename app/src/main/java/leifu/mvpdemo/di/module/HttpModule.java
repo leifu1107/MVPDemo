@@ -10,6 +10,7 @@ import dagger.Module;
 import dagger.Provides;
 import leifu.mvpdemo.BuildConfig;
 import leifu.mvpdemo.app.Constants;
+import leifu.mvpdemo.model.RetrofitHelper;
 import leifu.mvpdemo.model.http.ZhiHuApis;
 import leifu.mvpdemo.utils.SystemUtils;
 import okhttp3.Cache;
@@ -126,5 +127,11 @@ public class HttpModule {
         //错误重连
         builder.retryOnConnectionFailure(true);
         return builder.build();
+    }
+
+    @Singleton
+    @Provides
+    RetrofitHelper provideRetrofitHelper(ZhiHuApis zhiHuApis) {
+        return new RetrofitHelper(zhiHuApis);
     }
 }

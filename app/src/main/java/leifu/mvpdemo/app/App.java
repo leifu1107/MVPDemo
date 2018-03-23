@@ -2,6 +2,10 @@ package leifu.mvpdemo.app;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
+import android.support.multidex.MultiDex;
+
+import com.squareup.leakcanary.LeakCanary;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -9,6 +13,7 @@ import java.util.Set;
 import leifu.mvpdemo.di.component.AppComponent;
 import leifu.mvpdemo.di.component.DaggerAppComponent;
 import leifu.mvpdemo.di.module.AppModule;
+import leifu.mvpdemo.di.module.HttpModule;
 import leifu.toastlibrary.CustomToast;
 
 /**
@@ -26,7 +31,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
-//        LeakCanary.install(this);
+        LeakCanary.install(this);
         CustomToast.init(this);
 
     }
@@ -62,16 +67,18 @@ public class App extends Application {
 
     }
 
-//    @Override
-//    protected void attachBaseContext(Context base) {
-//        super.attachBaseContext(base);
-//        MultiDex.install(this);
-//    }
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
 
     public static AppComponent getAppComponent() {
+
         if (appComponent == null) {
             appComponent = DaggerAppComponent.builder()
                     .appModule(new AppModule(instance))
+                    .httpModule(new HttpModule())
                     .build();
         }
         return appComponent;

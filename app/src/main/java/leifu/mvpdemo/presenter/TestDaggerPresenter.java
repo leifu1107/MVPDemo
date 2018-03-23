@@ -16,8 +16,6 @@ import leifu.mvpdemo.presenter.contract.TestDaggerContract;
  */
 
 public class TestDaggerPresenter extends RxPresenter<TestDaggerContract.View> implements TestDaggerContract.Presenter {
-
-
     RetrofitHelper retrofitHelper;
 
     @Inject
@@ -28,7 +26,7 @@ public class TestDaggerPresenter extends RxPresenter<TestDaggerContract.View> im
     @Override
     public void getDailyList() {
         addSubscribe(retrofitHelper.fetchDailyListInfo()
-        .compose(RxUtil.<DailyListBean>rxSchedulerHelper())
+                .compose(RxUtil.<DailyListBean>rxSchedulerHelper())
                 .subscribe(new Consumer<DailyListBean>() {
                     @Override
                     public void accept(DailyListBean dailyListBean) throws Exception {

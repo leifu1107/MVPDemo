@@ -4,6 +4,11 @@ import android.support.v7.app.AppCompatDelegate;
 
 import javax.inject.Inject;
 
+import leifu.mvpdemo.app.App;
+import leifu.mvpdemo.di.component.ActivityComponent;
+import leifu.mvpdemo.di.component.DaggerActivityComponent;
+import leifu.mvpdemo.di.module.ActivityModule;
+
 /**
  * Created by codeest on 2016/8/2.
  * MVP activity基类
@@ -13,17 +18,17 @@ public abstract class BaseActivity<T extends BasePresenter> extends SimpleActivi
     @Inject
     protected T mPresenter;
 
-//    protected ActivityComponent getActivityComponent(){
-//
-//        return  DaggerActivityComponent.builder()
-//                .appComponent(App.getAppComponent())
-//                .activityModule(getActivityModule())
-//                .build();
-//    }
-//
-//    protected ActivityModule getActivityModule(){
-//        return new ActivityModule(this);
-//    }
+    protected ActivityComponent getActivityComponent(){
+
+        return  DaggerActivityComponent.builder()
+                .appComponent(App.getAppComponent())
+                .activityModule(getActivityModule())
+                .build();
+    }
+
+    protected ActivityModule getActivityModule(){
+        return new ActivityModule(this);
+    }
 
     @Override
     protected void onViewCreated() {
