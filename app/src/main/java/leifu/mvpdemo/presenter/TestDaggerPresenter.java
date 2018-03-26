@@ -1,12 +1,15 @@
 package leifu.mvpdemo.presenter;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import io.reactivex.functions.Consumer;
 import leifu.mvpdemo.base.RxPresenter;
 import leifu.mvpdemo.base.RxUtil;
 import leifu.mvpdemo.model.RetrofitHelper;
-import leifu.mvpdemo.model.bean.DailyListBean;
+import leifu.mvpdemo.model.bean.GankHttpResponse;
+import leifu.mvpdemo.model.bean.GankItemBean;
 import leifu.mvpdemo.presenter.contract.TestDaggerContract;
 
 /**
@@ -25,15 +28,17 @@ public class TestDaggerPresenter extends RxPresenter<TestDaggerContract.View> im
 
     @Override
     public void getDailyList() {
-        addSubscribe(retrofitHelper.fetchDailyListInfo()
-                .compose(RxUtil.<DailyListBean>rxSchedulerHelper())
-                .subscribe(new Consumer<DailyListBean>() {
+        addSubscribe(retrofitHelper.getWXHot("Android", 20, 1)
+                .compose(RxUtil.<GankHttpResponse<List<GankItemBean>>>rxSchedulerHelper())
+                .compose(RxUtil.<List<GankItemBean>>handleResult())
+                .subscribe(new Consumer<List<GankItemBean>>() {
                     @Override
-                    public void accept(DailyListBean dailyListBean) throws Exception {
-                        mView.showContent(dailyListBean);
+                    public void accept(List<GankItemBean> gankItemBeen) throws Exception {
+
                     }
                 })
         );
+
 
     }
 }

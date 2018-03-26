@@ -1,7 +1,10 @@
 package leifu.mvpdemo.model;
 
+import java.util.List;
+
 import io.reactivex.Flowable;
-import leifu.mvpdemo.model.bean.DailyListBean;
+import leifu.mvpdemo.model.bean.GankHttpResponse;
+import leifu.mvpdemo.model.bean.GankItemBean;
 import leifu.mvpdemo.model.http.ZhiHuApis;
 
 /**
@@ -17,7 +20,10 @@ public class RetrofitHelper {
         this.mZhihuApiService = mZhihuApiService;
     }
 
-    public Flowable<DailyListBean>  fetchDailyListInfo() {
-        return mZhihuApiService.getDailyList();
+    //    public Flowable<DailyListBean>  fetchDailyListInfo() {
+//        return mZhihuApiService.getDailyList();
+//    }
+    public Flowable<GankHttpResponse<List<GankItemBean>>> getWXHot(String tech, int num, int page) {
+        return mZhihuApiService.getTechList(tech, num, page);
     }
 }

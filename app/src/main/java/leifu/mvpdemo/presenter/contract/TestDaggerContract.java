@@ -2,7 +2,6 @@ package leifu.mvpdemo.presenter.contract;
 
 import leifu.mvpdemo.base.BasePresenter;
 import leifu.mvpdemo.base.BaseView;
-import leifu.mvpdemo.model.bean.DailyListBean;
 
 /**
  * 创建人: 雷富
@@ -12,7 +11,7 @@ import leifu.mvpdemo.model.bean.DailyListBean;
 
 public interface TestDaggerContract {
     interface View extends BaseView {
-        void showContent(DailyListBean dailyListBean);
+//        void showContent(DailyListBean dailyListBean);
     }
 
     interface Presenter extends BasePresenter<View> {

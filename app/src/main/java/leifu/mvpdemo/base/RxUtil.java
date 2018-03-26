@@ -6,7 +6,12 @@ import io.reactivex.FlowableEmitter;
 import io.reactivex.FlowableOnSubscribe;
 import io.reactivex.FlowableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
+import leifu.mvpdemo.model.bean.GankHttpResponse;
+import leifu.mvpdemo.model.exception.ApiException;
+import leifu.mvpdemo.utils.JsonUtil;
+import leifu.mvpdemo.utils.Logger;
 
 /**
  * Created by codeest on 2016/8/3.
@@ -15,6 +20,7 @@ public class RxUtil {
 
     /**
      * 统一线程处理
+     *
      * @param <T>
      * @return
      */
@@ -28,22 +34,24 @@ public class RxUtil {
         };
     }
 
-    /**
-     * 统一返回结果处理
-     * @param <T>
-     * @return
-     */
-//    public static <T> FlowableTransformer<GankHttpResponse<T>, T> handleResult() {   //compose判断结果
-//        return new FlowableTransformer<GankHttpResponse<T>, T>() {
+//    /**
+//     * 统一返回结果处理
+//     *
+//     * @param <T>
+//     * @return
+//     */
+//    public static <T> FlowableTransformer<WXHttpResponse<T>, T> handleWXResult() {   //compose判断结果
+//        return new FlowableTransformer<WXHttpResponse<T>, T>() {
 //            @Override
-//            public Flowable<T> apply(Flowable<GankHttpResponse<T>> httpResponseFlowable) {
-//                return httpResponseFlowable.flatMap(new Function<GankHttpResponse<T>, Flowable<T>>() {
+//            public Flowable<T> apply(Flowable<WXHttpResponse<T>> httpResponseFlowable) {
+//                return httpResponseFlowable.flatMap(new Function<WXHttpResponse<T>, Flowable<T>>() {
 //                    @Override
-//                    public Flowable<T> apply(GankHttpResponse<T> tGankHttpResponse) {
-//                        if(!tGankHttpResponse.getError()) {
-//                            return createData(tGankHttpResponse.getResults());
+//                    public Flowable<T> apply(WXHttpResponse<T> tWXHttpResponse) {
+//                        Logger.e("aaa----aa" + JsonUtil.toJson(tWXHttpResponse));
+//                        if (tWXHttpResponse.getCode() == 200) {
+//                            return createData(tWXHttpResponse.getNewslist());
 //                        } else {
-//                            return Flowable.error(new ApiException("服务器返回error"));
+//                            return Flowable.error(new ApiException(tWXHttpResponse.getMsg(), tWXHttpResponse.getCode()));
 //                        }
 //                    }
 //                });
@@ -51,11 +59,34 @@ public class RxUtil {
 //        };
 //    }
 
-
-
+    /**
+     * 统一返回结果处理
+     *
+     * @param <T>
+     * @return
+     */
+    public static <T> FlowableTransformer<GankHttpResponse<T>, T> handleResult() {   //compose判断结果
+        return new FlowableTransformer<GankHttpResponse<T>, T>() {
+            @Override
+            public Flowable<T> apply(Flowable<GankHttpResponse<T>> httpResponseFlowable) {
+                return httpResponseFlowable.flatMap(new Function<GankHttpResponse<T>, Flowable<T>>() {
+                    @Override
+                    public Flowable<T> apply(GankHttpResponse<T> tGankHttpResponse) {
+                        Logger.e("a---" + JsonUtil.toJson(tGankHttpResponse));
+                        if (!tGankHttpResponse.getError()) {
+                            return createData(tGankHttpResponse.getResults());
+                        } else {
+                            return Flowable.error(new ApiException("服务器返回error"));
+                        }
+                    }
+                });
+            }
+        };
+    }
 
     /**
      * 生成Flowable
+     *
      * @param <T>
      * @return
      */

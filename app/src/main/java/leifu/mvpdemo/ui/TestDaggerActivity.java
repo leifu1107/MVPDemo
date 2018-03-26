@@ -5,11 +5,8 @@ import android.widget.TextView;
 import butterknife.BindView;
 import leifu.mvpdemo.R;
 import leifu.mvpdemo.base.BaseActivity;
-import leifu.mvpdemo.model.bean.DailyListBean;
 import leifu.mvpdemo.presenter.TestDaggerPresenter;
 import leifu.mvpdemo.presenter.contract.TestDaggerContract;
-import leifu.mvpdemo.utils.Logger;
-import leifu.toastlibrary.CustomToast;
 
 /**
  * 创建人: 雷富
@@ -36,11 +33,11 @@ public class TestDaggerActivity extends BaseActivity<TestDaggerPresenter> implem
         getActivityComponent().inject(this);
     }
 
-    @Override
-    public void showContent(DailyListBean dailyListBean) {
-        CustomToast.success("111" + dailyListBean.getDate());
-        Logger.e("aaa" + dailyListBean.getDate());
-        text.setText(dailyListBean.getDate());
-    }
+//    @Override
+//    public void showContent(DailyListBean dailyListBean) {
+//        CustomToast.success("111" + dailyListBean.getDate());
+//        Logger.e("aaa" + dailyListBean.getDate());
+//        text.setText(dailyListBean.getDate());
+//    }
 
 }

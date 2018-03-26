@@ -15,6 +15,8 @@ public class Constants {
     public static final String HOST = "http://news-at.zhihu.com/api/4/";
 
     //================= KEY ====================
+
+    public static final String KEY_API = "52b7ec3471ac3bec6846577e79f20e4c"; //需要APIKEY请去 http://www.tianapi.com/#wxnew 申请,复用会减少访问可用次数
     //================= PATH ====================
 
     public static final String PATH_DATA = App.getInstance().getCacheDir().getAbsolutePath() + File.separator + "data";
