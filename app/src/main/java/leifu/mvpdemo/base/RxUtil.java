@@ -8,6 +8,7 @@ import io.reactivex.FlowableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
+import leifu.mvpdemo.model.http.MyHttpResponse;
 import leifu.mvpdemo.model.bean.GankHttpResponse;
 import leifu.mvpdemo.model.exception.ApiException;
 import leifu.mvpdemo.utils.JsonUtil;
@@ -34,30 +35,30 @@ public class RxUtil {
         };
     }
 
-//    /**
-//     * 统一返回结果处理
-//     *
-//     * @param <T>
-//     * @return
-//     */
-//    public static <T> FlowableTransformer<WXHttpResponse<T>, T> handleWXResult() {   //compose判断结果
-//        return new FlowableTransformer<WXHttpResponse<T>, T>() {
-//            @Override
-//            public Flowable<T> apply(Flowable<WXHttpResponse<T>> httpResponseFlowable) {
-//                return httpResponseFlowable.flatMap(new Function<WXHttpResponse<T>, Flowable<T>>() {
-//                    @Override
-//                    public Flowable<T> apply(WXHttpResponse<T> tWXHttpResponse) {
-//                        Logger.e("aaa----aa" + JsonUtil.toJson(tWXHttpResponse));
-//                        if (tWXHttpResponse.getCode() == 200) {
-//                            return createData(tWXHttpResponse.getNewslist());
-//                        } else {
-//                            return Flowable.error(new ApiException(tWXHttpResponse.getMsg(), tWXHttpResponse.getCode()));
-//                        }
-//                    }
-//                });
-//            }
-//        };
-//    }
+    /**
+     * 统一返回结果处理
+     *
+     * @param <T>
+     * @return
+     */
+    public static <T> FlowableTransformer<MyHttpResponse<T>, T> handleBaseBeanResult() {   //compose判断结果
+        return new FlowableTransformer<MyHttpResponse<T>, T>() {
+            @Override
+            public Flowable<T> apply(Flowable<MyHttpResponse<T>> httpResponseFlowable) {
+                return httpResponseFlowable.flatMap(new Function<MyHttpResponse<T>, Flowable<T>>() {
+                    @Override
+                    public Flowable<T> apply(MyHttpResponse<T> tMyHttpResponse) {
+                        Logger.e("OkHttp: 统一返回结果处理 " + JsonUtil.toJson(tMyHttpResponse));
+                        if (tMyHttpResponse.getState() == 1) {
+                            return createData(tMyHttpResponse.getData());
+                        } else {
+                            return Flowable.error(new ApiException(tMyHttpResponse.getMsg(), tMyHttpResponse.getState()));
+                        }
+                    }
+                });
+            }
+        };
+    }
 
     /**
      * 统一返回结果处理

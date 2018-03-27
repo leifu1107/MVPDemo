@@ -1,12 +1,12 @@
 package leifu.mvpdemo.model.http;
 
-import java.util.List;
+import java.util.HashMap;
 
 import io.reactivex.Flowable;
-import leifu.mvpdemo.model.bean.GankHttpResponse;
-import leifu.mvpdemo.model.bean.GankItemBean;
-import retrofit2.http.GET;
-import retrofit2.http.Path;
+import leifu.mvpdemo.model.bean.BaseBean;
+import retrofit2.http.FieldMap;
+import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.POST;
 
 /**
  * 创建人: 雷富
@@ -15,23 +15,18 @@ import retrofit2.http.Path;
  */
 
 public interface ZhiHuApis {
-//    String HOST = "http://news-at.zhihu.com/api/4/";
-String HOST = "http://gank.io/api/";
-//    /**
-//     * 最新日报
-//     */
-//    @GET("news/latest")
-//    Flowable<DailyListBean> getDailyList();
+    //    String HOST = "http://news-at.zhihu.com/api/4/";
+//    String HOST = "http://gank.io/api/";
+    String HOST = " https://www.ebhtec.com/";
 
-//    /**
-//     * 微信精选列表
-//     */
-//    @GET("wxnew")
-//    Flowable<WXHttpResponse<List<GankItemBean>>> getWXHot(@Query("key") String key, @Query("num") int num, @Query("page") int page);
 
     /**
-     * 技术文章列表
+     * 提交成功
+     *
+     * @param paramsMap
+     * @return
      */
-    @GET("data/{tech}/{num}/{page}")
-    Flowable<GankHttpResponse<List<GankItemBean>>> getTechList(@Path("tech") String tech, @Path("num") int num, @Path("page") int page);
+    @FormUrlEncoded
+    @POST("test/WebsiteActivity/AddGp")
+    Flowable<BaseBean> getBaseBean(@FieldMap HashMap<String, String> paramsMap);
 }

@@ -1,13 +1,13 @@
 package leifu.mvpdemo.base;
 
-import android.support.v7.app.AppCompatDelegate;
-
 import javax.inject.Inject;
 
 import leifu.mvpdemo.app.App;
 import leifu.mvpdemo.di.component.ActivityComponent;
 import leifu.mvpdemo.di.component.DaggerActivityComponent;
 import leifu.mvpdemo.di.module.ActivityModule;
+import leifu.mvpdemo.dialog.ProgressDialogUtil;
+import leifu.toastlibrary.CustomToast;
 
 /**
  * Created by codeest on 2016/8/2.
@@ -18,15 +18,15 @@ public abstract class BaseActivity<T extends BasePresenter> extends SimpleActivi
     @Inject
     protected T mPresenter;
 
-    protected ActivityComponent getActivityComponent(){
+    protected ActivityComponent getActivityComponent() {
 
-        return  DaggerActivityComponent.builder()
+        return DaggerActivityComponent.builder()
                 .appComponent(App.getAppComponent())
                 .activityModule(getActivityModule())
                 .build();
     }
 
-    protected ActivityModule getActivityModule(){
+    protected ActivityModule getActivityModule() {
         return new ActivityModule(this);
     }
 
@@ -47,18 +47,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends SimpleActivi
 
     @Override
     public void showErrorMsg(String msg) {
-    }
-
-    @Override
-    public void useNightMode(boolean isNight) {
-        if (isNight) {
-            AppCompatDelegate.setDefaultNightMode(
-                    AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(
-                    AppCompatDelegate.MODE_NIGHT_NO);
-        }
-        recreate();
+        CustomToast.error(msg);
     }
 
     @Override
@@ -67,18 +56,8 @@ public abstract class BaseActivity<T extends BasePresenter> extends SimpleActivi
     }
 
     @Override
-    public void stateEmpty() {
-
-    }
-
-    @Override
     public void stateLoading() {
-
-    }
-
-    @Override
-    public void stateMain() {
-
+        ProgressDialogUtil.showWaitDialog(mContext, "加载中");
     }
 
     protected abstract void initInject();

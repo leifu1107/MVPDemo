@@ -1,7 +1,10 @@
 package leifu.mvpdemo.presenter.contract;
 
+import java.util.HashMap;
+
 import leifu.mvpdemo.base.BasePresenter;
 import leifu.mvpdemo.base.BaseView;
+import leifu.mvpdemo.model.bean.BaseBean;
 
 /**
  * 创建人: 雷富
@@ -11,10 +14,10 @@ import leifu.mvpdemo.base.BaseView;
 
 public interface TestDaggerContract {
     interface View extends BaseView {
-//        void showContent(DailyListBean dailyListBean);
+        void showContent(BaseBean baseBean);
     }
 
     interface Presenter extends BasePresenter<View> {
-        void getDailyList();
+        void getDailyList(HashMap<String, String> paramsMap);
     }
 }

@@ -43,10 +43,6 @@ public abstract class BaseFragment<T extends BasePresenter> extends SimpleFragme
     public void showErrorMsg(String msg) {
     }
 
-    @Override
-    public void useNightMode(boolean isNight) {
-
-    }
 
     @Override
     public void stateError() {
@@ -54,17 +50,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends SimpleFragme
     }
 
     @Override
-    public void stateEmpty() {
-
-    }
-
-    @Override
     public void stateLoading() {
-
-    }
-
-    @Override
-    public void stateMain() {
 
     }
 

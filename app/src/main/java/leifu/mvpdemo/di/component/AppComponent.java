@@ -6,7 +6,7 @@ import dagger.Component;
 import leifu.mvpdemo.app.App;
 import leifu.mvpdemo.di.module.AppModule;
 import leifu.mvpdemo.di.module.HttpModule;
-import leifu.mvpdemo.model.RetrofitHelper;
+import leifu.mvpdemo.model.http.RetrofitHelper;
 
 /**
  * 创建人: 雷富

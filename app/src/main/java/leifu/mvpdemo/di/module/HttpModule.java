@@ -10,8 +10,9 @@ import dagger.Module;
 import dagger.Provides;
 import leifu.mvpdemo.BuildConfig;
 import leifu.mvpdemo.app.Constants;
-import leifu.mvpdemo.model.RetrofitHelper;
+import leifu.mvpdemo.model.http.RetrofitHelper;
 import leifu.mvpdemo.model.http.ZhiHuApis;
+import leifu.mvpdemo.utils.Logger;
 import leifu.mvpdemo.utils.SystemUtils;
 import okhttp3.Cache;
 import okhttp3.CacheControl;
@@ -70,8 +71,13 @@ public class HttpModule {
     @Provides
     OkHttpClient provideClient(OkHttpClient.Builder builder) {
         if (BuildConfig.DEBUG) {
-            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
+            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
+                @Override
+                public void log(String message) {
+                    Logger.e("OkHttp:  " + message);
+                }
+            });
+            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
             builder.addInterceptor(loggingInterceptor);
         }
         File cacheFile = new File(Constants.PATH_CACHE);

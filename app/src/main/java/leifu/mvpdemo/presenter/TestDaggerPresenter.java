@@ -1,15 +1,15 @@
 package leifu.mvpdemo.presenter;
 
-import java.util.List;
+import java.util.HashMap;
 
 import javax.inject.Inject;
 
-import io.reactivex.functions.Consumer;
 import leifu.mvpdemo.base.RxPresenter;
 import leifu.mvpdemo.base.RxUtil;
-import leifu.mvpdemo.model.RetrofitHelper;
-import leifu.mvpdemo.model.bean.GankHttpResponse;
-import leifu.mvpdemo.model.bean.GankItemBean;
+import leifu.mvpdemo.model.bean.BaseBean;
+import leifu.mvpdemo.model.exception.CommonSubscriber;
+import leifu.mvpdemo.model.http.PostParamsHelper;
+import leifu.mvpdemo.model.http.RetrofitHelper;
 import leifu.mvpdemo.presenter.contract.TestDaggerContract;
 
 /**
@@ -27,16 +27,22 @@ public class TestDaggerPresenter extends RxPresenter<TestDaggerContract.View> im
     }
 
     @Override
-    public void getDailyList() {
-        addSubscribe(retrofitHelper.getWXHot("Android", 20, 1)
-                .compose(RxUtil.<GankHttpResponse<List<GankItemBean>>>rxSchedulerHelper())
-                .compose(RxUtil.<List<GankItemBean>>handleResult())
-                .subscribe(new Consumer<List<GankItemBean>>() {
+    public void getDailyList(HashMap<String, String> paramsMap) {
+        addSubscribe(retrofitHelper.getBaseBean(PostParamsHelper.putParams(paramsMap))
+                .compose(RxUtil.<BaseBean>rxSchedulerHelper())
+                .subscribeWith(new CommonSubscriber<BaseBean>(mView) {
                     @Override
-                    public void accept(List<GankItemBean> gankItemBeen) throws Exception {
-
+                    public void onNext(BaseBean baseBean) {
+                        mView.showContent(baseBean);
                     }
                 })
+//                .subscribe(new Consumer<BaseBean>() {
+//                    @Override
+//                    public void accept(BaseBean baseBean) throws Exception {
+//                        mView.showContent(baseBean);
+//                    }
+//                })
+
         );
 
 

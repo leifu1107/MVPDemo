@@ -2,11 +2,16 @@ package leifu.mvpdemo.ui;
 
 import android.widget.TextView;
 
+import java.util.HashMap;
+
 import butterknife.BindView;
 import leifu.mvpdemo.R;
 import leifu.mvpdemo.base.BaseActivity;
+import leifu.mvpdemo.model.bean.BaseBean;
 import leifu.mvpdemo.presenter.TestDaggerPresenter;
 import leifu.mvpdemo.presenter.contract.TestDaggerContract;
+import leifu.mvpdemo.utils.JsonUtil;
+import leifu.mvpdemo.utils.Logger;
 
 /**
  * 创建人: 雷富
@@ -25,7 +30,10 @@ public class TestDaggerActivity extends BaseActivity<TestDaggerPresenter> implem
 
     @Override
     protected void initEventAndData() {
-        mPresenter.getDailyList();
+        HashMap<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("name", "1112312");
+        paramsMap.put("phone", "11122312");
+        mPresenter.getDailyList(paramsMap);
     }
 
     @Override
@@ -33,11 +41,11 @@ public class TestDaggerActivity extends BaseActivity<TestDaggerPresenter> implem
         getActivityComponent().inject(this);
     }
 
-//    @Override
-//    public void showContent(DailyListBean dailyListBean) {
-//        CustomToast.success("111" + dailyListBean.getDate());
-//        Logger.e("aaa" + dailyListBean.getDate());
-//        text.setText(dailyListBean.getDate());
-//    }
 
+    @Override
+    public void showContent(BaseBean baseBean) {
+        Logger.e(JsonUtil.toJson(baseBean));
+        showErrorMsg("状态--" + baseBean.getState() + baseBean.getMsg());
+
+    }
 }
