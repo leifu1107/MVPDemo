@@ -5,6 +5,7 @@ import android.app.Activity;
 import dagger.Component;
 import leifu.mvpdemo.di.module.ActivityModule;
 import leifu.mvpdemo.di.scope.ActivityScope;
+import leifu.mvpdemo.ui.LoginActivity;
 import leifu.mvpdemo.ui.TestDaggerActivity;
 
 /**
@@ -18,6 +19,8 @@ public interface ActivityComponent {
 
     Activity getActivity();
 
-    void inject(TestDaggerActivity testDaggerActivity);
+    void inject(TestDaggerActivity activity);
+
+    void inject(LoginActivity activity);
 }
 

@@ -6,6 +6,11 @@ import android.view.View;
 
 import javax.inject.Inject;
 
+import leifu.mvpdemo.app.App;
+import leifu.mvpdemo.di.component.DaggerFragmentComponent;
+import leifu.mvpdemo.di.component.FragmentComponent;
+import leifu.mvpdemo.di.module.FragmentModule;
+
 /**
  * Created by codeest on 2016/8/2.
  * MVP Fragment基类
@@ -15,16 +20,16 @@ public abstract class BaseFragment<T extends BasePresenter> extends SimpleFragme
     @Inject
     protected T mPresenter;
 
-//    protected FragmentComponent getFragmentComponent(){
-//        return DaggerFragmentComponent.builder()
-//                .appComponent(App.getAppComponent())
-//                .fragmentModule(getFragmentModule())
-//                .build();
-//    }
-//
-//    protected FragmentModule getFragmentModule(){
-//        return new FragmentModule(this);
-//    }
+    protected FragmentComponent getFragmentComponent(){
+        return DaggerFragmentComponent.builder()
+                .appComponent(App.getAppComponent())
+                .fragmentModule(getFragmentModule())
+                .build();
+    }
+
+    protected FragmentModule getFragmentModule(){
+        return new FragmentModule(this);
+    }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -51,6 +56,11 @@ public abstract class BaseFragment<T extends BasePresenter> extends SimpleFragme
 
     @Override
     public void stateLoading() {
+
+    }
+
+    @Override
+    public void goLogin() {
 
     }
 

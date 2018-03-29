@@ -30,6 +30,7 @@ public class TestDaggerPresenter extends RxPresenter<TestDaggerContract.View> im
     public void getDailyList(HashMap<String, String> paramsMap) {
         addSubscribe(retrofitHelper.getBaseBean(PostParamsHelper.putParams(paramsMap))
                 .compose(RxUtil.<BaseBean>rxSchedulerHelper())
+                .compose(RxUtil.<BaseBean>handleResult1())
                 .subscribeWith(new CommonSubscriber<BaseBean>(mView) {
                     @Override
                     public void onNext(BaseBean baseBean) {

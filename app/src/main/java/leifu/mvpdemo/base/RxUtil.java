@@ -8,6 +8,7 @@ import io.reactivex.FlowableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
+import leifu.mvpdemo.model.bean.BaseBean;
 import leifu.mvpdemo.model.http.MyHttpResponse;
 import leifu.mvpdemo.model.bean.GankHttpResponse;
 import leifu.mvpdemo.model.exception.ApiException;
@@ -78,6 +79,31 @@ public class RxUtil {
                             return createData(tGankHttpResponse.getResults());
                         } else {
                             return Flowable.error(new ApiException("服务器返回error"));
+                        }
+                    }
+                });
+            }
+        };
+    }
+    /**
+     * 统一返回结果处理
+     *
+     * @param <T>
+     * @return
+     */
+    public static <T> FlowableTransformer<T, T> handleResult1() {   //compose判断结果
+        return new FlowableTransformer<T, T>() {
+            @Override
+            public Flowable<T> apply(Flowable<T> httpResponseFlowable) {
+                return httpResponseFlowable.flatMap(new Function<T, Flowable<T>>() {
+                    @Override
+                    public Flowable<T> apply(T tGankHttpResponse) {
+                        Logger.e("a---" + JsonUtil.toJson(tGankHttpResponse));
+                        BaseBean baseBean = (BaseBean) tGankHttpResponse;
+                        if (baseBean.getState()==1) {
+                            return createData(tGankHttpResponse);
+                        } else {
+                            return Flowable.error(new ApiException("请重新登录"));
                         }
                     }
                 });

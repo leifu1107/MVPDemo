@@ -2,6 +2,7 @@ package leifu.mvpdemo.base;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -57,7 +58,10 @@ public abstract class SimpleFragment extends SupportFragment {
         super.onDestroyView();
         mUnBinder.unbind();
     }
-
+    public void mStartActivity(Class<?> intentActivity) {
+        Intent intent = new Intent(mContext, intentActivity);
+        super.startActivity(intent);
+    }
     protected abstract int getLayoutId();
     protected abstract void initEventAndData();
 }

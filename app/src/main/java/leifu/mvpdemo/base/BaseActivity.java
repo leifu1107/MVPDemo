@@ -7,6 +7,7 @@ import leifu.mvpdemo.di.component.ActivityComponent;
 import leifu.mvpdemo.di.component.DaggerActivityComponent;
 import leifu.mvpdemo.di.module.ActivityModule;
 import leifu.mvpdemo.dialog.ProgressDialogUtil;
+import leifu.mvpdemo.ui.LoginActivity;
 import leifu.toastlibrary.CustomToast;
 
 /**
@@ -58,6 +59,11 @@ public abstract class BaseActivity<T extends BasePresenter> extends SimpleActivi
     @Override
     public void stateLoading() {
         ProgressDialogUtil.showWaitDialog(mContext, "加载中");
+    }
+
+    @Override
+    public void goLogin() {
+        mStartActivity(LoginActivity.class);
     }
 
     protected abstract void initInject();

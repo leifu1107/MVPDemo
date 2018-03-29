@@ -56,6 +56,9 @@ public abstract class CommonSubscriber<T> extends ResourceSubscriber<T> {
             mView.showErrorMsg(mErrorMsg);
         } else if (e instanceof ApiException) {
             mView.showErrorMsg(e.getMessage());
+            if ("请重新登录".equals(e.getMessage())) {
+                mView.goLogin();
+            }
         } else if (e instanceof HttpException) {
             mView.showErrorMsg("数据加载失败ヽ(≧Д≦)ノ");
         } else {

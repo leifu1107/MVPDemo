@@ -12,4 +12,6 @@ public interface BaseView {
     //=======  State  =======
     void stateError();
     void stateLoading();
+
+    void goLogin();
 }

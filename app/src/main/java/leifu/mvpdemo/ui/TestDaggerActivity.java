@@ -10,7 +10,7 @@ import leifu.mvpdemo.base.BaseActivity;
 import leifu.mvpdemo.model.bean.BaseBean;
 import leifu.mvpdemo.presenter.TestDaggerPresenter;
 import leifu.mvpdemo.presenter.contract.TestDaggerContract;
-import leifu.mvpdemo.utils.JsonUtil;
+import leifu.mvpdemo.utils.DateUtils;
 import leifu.mvpdemo.utils.Logger;
 
 /**
@@ -44,8 +44,9 @@ public class TestDaggerActivity extends BaseActivity<TestDaggerPresenter> implem
 
     @Override
     public void showContent(BaseBean baseBean) {
-        Logger.e(JsonUtil.toJson(baseBean));
+        Logger.e(DateUtils.getTimestamp() + "---" + DateUtils.getCurrentDateString());
         showErrorMsg("状态--" + baseBean.getState() + baseBean.getMsg());
-
+//        mStartActivity(LoginActivity.class);
+        text.setText(DateUtils.getTimestamp() + "");
     }
 }
