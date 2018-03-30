@@ -68,9 +68,12 @@ public class RxUtil {
      * @return
      */
     public static <T> FlowableTransformer<GankHttpResponse<T>, T> handleResult() {   //compose判断结果
+
         return new FlowableTransformer<GankHttpResponse<T>, T>() {
             @Override
             public Flowable<T> apply(Flowable<GankHttpResponse<T>> httpResponseFlowable) {
+
+
                 return httpResponseFlowable.flatMap(new Function<GankHttpResponse<T>, Flowable<T>>() {
                     @Override
                     public Flowable<T> apply(GankHttpResponse<T> tGankHttpResponse) {
