@@ -7,6 +7,7 @@ import leifu.mvpdemo.di.module.ActivityModule;
 import leifu.mvpdemo.di.scope.ActivityScope;
 import leifu.mvpdemo.ui.LoginActivity;
 import leifu.mvpdemo.ui.TestDaggerActivity;
+import leifu.mvpdemo.ui.UpPicActivity;
 
 /**
  * 创建人: 雷富
@@ -22,5 +23,7 @@ public interface ActivityComponent {
     void inject(TestDaggerActivity activity);
 
     void inject(LoginActivity activity);
+
+    void inject(UpPicActivity activity);
 }
 

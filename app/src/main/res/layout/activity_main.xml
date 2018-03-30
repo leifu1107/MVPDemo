@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="leifu.mvpdemo.MainActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="leifu.mvpdemo.ui.TestDaggerActivity">
 
     <TextView
         android:id="@+id/text"
@@ -13,5 +13,11 @@
         android:layout_height="wrap_content"
         android:text="Hello World!"
         />
+
+    <ImageView
+        android:id="@+id/ivUp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@mipmap/ic_launcher"/>
 
 </LinearLayout>

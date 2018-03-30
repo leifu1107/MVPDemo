@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="leifu.mvpdemo.ui.LoginActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="leifu.mvpdemo.ui.LoginActivity">
 
     <TextView
         android:id="@+id/text"
@@ -14,4 +14,9 @@
         android:text="bus!"
         />
 
+    <ImageView
+        android:id="@+id/ivUp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@mipmap/ic_launcher"/>
 </LinearLayout>
